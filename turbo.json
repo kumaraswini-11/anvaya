@@ -1,0 +1,42 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "agentGuidance": true,
+  "globalDependencies": [
+    ".env",
+    ".env.example",
+    "tsconfig.base.json",
+    "packages/tsconfig/base.json"
+  ],
+  "globalEnv": ["NODE_ENV", "CI"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "//#lint": {},
+    "//#format": {},
+    "//#format:check": {},
+    "typecheck": {
+      "dependsOn": ["^transit"],
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["^transit"],
+      "outputs": []
+    },
+    "test:e2e": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "transit": {
+      "dependsOn": ["^transit"]
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

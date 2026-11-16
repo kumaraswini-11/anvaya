@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artefacts
+dist/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Environment files
+# Commit only `.env.example` templates. All real env files stay local.
+# https://github.com/kriasoft/react-starter-kit/pull/2158
+.env
+.env.*
+!.env.example
+!.env.*.example
+# Legacy local-only file (kept for compatibility with current scripts)
+test.env
+# Per-app secret overrides (real values)
+.env*.local
+
+# Lockfiles 
+# pnpm-lock.yaml is committed at the root; ignore other managers' lockfiles.
+# https://github.com/nl-design-system/.gitignore/blob/main/.gitignore
+package-lock.json
+yarn.lock
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+playwright/.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Misc
+*.pem
+.vercel
+.cache/
+tmp/
+
+# Secrets — never commit
+# Firebase Admin SDK service-account JSON files (downloaded from Firebase
+# Console -> Project settings -> Service accounts).
+*-firebase-adminsdk-*.json
+google-services.json
+GoogleService-Info.plist
+# Vercel bundle of the API (pnpm --filter @anvaya/api build:vercel)
+apps/api/index.mjs
+apps/api/index.mjs.map

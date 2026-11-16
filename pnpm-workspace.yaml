@@ -1,0 +1,45 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Every dependency's version is defined once, here, as an exact version, and
+# packages write "catalog:" instead of a version.
+# https://pnpm.io/catalogs
+catalogMode: strict
+
+# Removes unused catalog entries automatically when running `pnpm install`.
+# Prevents catalog bloat in a long-lived enterprise codebase.
+# https://pnpm.io/settings#cleanupunusedcatalogs
+cleanupUnusedCatalogs: true
+
+# Enforces the Node.js version specified in the root `engines` field.
+# Critical for ensuring all contributors and CI use the same runtime.
+# https://pnpm.io/settings#enginestrict
+engineStrict: true
+
+# Treats unmet peer dependencies as errors, not warnings.
+# Prevents subtle runtime issues caused by missing peer deps.
+# https://pnpm.io/settings#strictpeerdependencies
+strictPeerDependencies: true
+
+# Ensures pnpm's default isolated node_modules layout is used.
+# This prevents "phantom dependencies" that can break builds.
+# https://pnpm.io/settings#shamefullyhoist
+shamefullyHoist: false
+
+# Note: Now pnpm support Splitting Settings with include, So in future if needed we can use this featuer. This allows you to use CODEOWNERS to restrict who can edit security.yaml, while catalog.yaml can be updated by any developer or bot.
+
+# This is the single source of truth for shared dependency versions.
+# Packages reference these versions using "catalog:" in their package.json.
+catalog:
+  # ── Runtime dependencies (used by apps) ──────────────────────────
+  # react: ^19.0.0
+  # react-dom: ^19.0.0
+  # next: ^16.0.0
+  # zod: ^4.0.0
+
+  # ── Dev / build dependencies ────────────────────────────────────
+  typescript: ~6.0.3
+  "@types/node": ^26.6.6
+  turbo: ~2.11.11
+  "@biomejs/biome": 2.6.8

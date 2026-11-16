@@ -1,0 +1,130 @@
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+# Cancel superseded PR runs, but never cancel a run on main:
+# a half-finished main run can leave artifacts or remote-cache writes inconsistent.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+  # Remote Cache. TURBO_TEAM is a repository variable (not a secret) per the
+  # official Turborepo GitHub Actions guide.
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  TURBO_LOG_ORDER: grouped
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  quality:
+    name: Lint and format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          # Biome's VCS integration uses --changed in CI, which needs the
+          # base branch in history to compute a diff.
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Biome
+        uses: biomejs/setup-biome@v2
+
+      # biome ci is the CI-specific command: no --write, GitHub annotations,
+      # and changed-file filtering. It is correct for pull requests.
+      - name: Check changed files (pull request)
+        if: github.event_name == 'pull_request'
+        run: biome ci .
+
+      # On main, biome ci would compare main against main and check nothing.
+      # Run the full check instead so every merged file is verified.
+      - name: Check all files (main)
+        if: github.event_name == 'push'
+        run: biome check .
+
+  verify:
+    name: Typecheck, build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          # --affected needs the merge base. Shallow clones silently fall back
+          # to running everything.
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Must come before setup-node so the pnpm cache can be keyed correctly.
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        # No `version` input: the action reads `packageManager` from package.json.
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Reads `engines.node` from the root package.json (>=26.0.0 <27).
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run affected tasks (pull request)
+        if: github.event_name == 'pull_request'
+        run: pnpm exec turbo run typecheck build test --affected --continue
+
+      - name: Run all tasks (main)
+        if: github.event_name == 'push'
+        run: pnpm exec turbo run typecheck build test --continue
+
+  e2e:
+    name: End-to-end
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # test:e2e has cache:false in turbo.json and dependsOn:["build"].
+      # The build is restored from the remote cache populated by `verify`,
+      # or rebuilt locally if remote cache is unavailable.
+      - name: Run end-to-end tests
+        run: pnpm exec turbo run test:e2e --continue
+        env:
+          NODE_ENV: test
+          # Add the e2e-only secrets and service URLs once the harness is defined:
+          # MONGODB_URI: ${{ secrets.E2E_MONGODB_URI }}
+          # POSTGRES_URL: ${{ secrets.E2E_POSTGRES_URL }}
