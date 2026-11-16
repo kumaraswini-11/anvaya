@@ -67,3 +67,6 @@ GoogleService-Info.plist
 # Vercel bundle of the API (pnpm --filter @anvaya/api build:vercel)
 apps/api/index.mjs
 apps/api/index.mjs.map
+
+# The official Next.js documentation is explicit: next-env.d.ts is managed by Next.js, its contents are an implementation detail, and it should be added to .gitignore. If it is already tracked, remove it from Git with git rm --cached next-env.d.ts
+next-env.d.ts

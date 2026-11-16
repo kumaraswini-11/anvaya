@@ -2,6 +2,11 @@ packages:
   - "apps/*"
   - "packages/*"
 
+# Allow native binaries to build. pnpm 11+ blocks build scripts by default (reached beacuse of next.js).
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+
 # Every dependency's version is defined once, here, as an exact version, and
 # packages write "catalog:" instead of a version.
 # https://pnpm.io/catalogs
@@ -33,13 +38,17 @@ shamefullyHoist: false
 # Packages reference these versions using "catalog:" in their package.json.
 catalog:
   # ── Runtime dependencies (used by apps) ──────────────────────────
-  # react: ^19.0.0
-  # react-dom: ^19.0.0
-  # next: ^16.0.0
-  # zod: ^4.0.0
-
-  # ── Dev / build dependencies ────────────────────────────────────
+  react: ^19.3.0
+  react-dom: ^19.3.0
+  next: ^16.4.6
+  tailwindcss: ^4.3.3
+  "@tailwindcss/turbopack": ^4.3.3
   typescript: ~6.0.3
-  "@types/node": ^26.6.6
-  turbo: ~2.11.11
   "@biomejs/biome": 2.6.8
+  turbo: ~2.11.11
+  babel-plugin-react-compiler: ^1.0.0
+
+  # ── Type Definitions ────────────────────────────────────────────
+  "@types/node": ^26.6.6
+  "@types/react": ^19.3.0
+  "@types/react-dom": ^19.3.0
