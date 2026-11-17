@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 // This file is rendered when a route is not matched or when the notFound() function is called. It takes precedence over error.tsx for missing resources.
 export default function NotFound() {

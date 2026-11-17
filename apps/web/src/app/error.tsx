@@ -1,12 +1,18 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 // Catches errors in the route segment and its children (e.g., app/page.tsx) but does not catch errors in its own layout.tsx. It renders inside the root layout, so the surrounding UI remains intact.
-export default function RouteError({ error, retry }: { error: unknown; retry: () => void }) {
+export default function RouteError({
+  error,
+  retry,
+}: {
+  error: Error & { digest?: string };
+  retry: () => void;
+}) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error('Unhandled application error:', error);
+    console.error("Unhandled application error:", error);
   }, [error]);
 
   return (

@@ -160,18 +160,18 @@ Finalize exact hex values later and document them here.
 ### 5.1 Root Layout Metadata (`app/layout.tsx`)
 
 ```tsx
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 const siteConfig = {
-  name: 'ANVAYA',
-  tagline: 'Every School Function, Connected.',
+  name: "ANVAYA",
+  tagline: "Every School Function, Connected.",
   description:
-    'ANVAYA is a modern School Management ERP that unifies academics, administration, fees, attendance, and communication into one connected platform.',
-  url: 'https://your-primary-domain.com', // ← replace
-  ogImage: 'https://your-primary-domain.com/og.png',
+    "ANVAYA is a modern School Management ERP that unifies academics, administration, fees, attendance, and communication into one connected platform.",
+  url: "https://your-primary-domain.com", // ← replace
+  ogImage: "https://your-primary-domain.com/og.png",
   links: {
-    twitter: 'https://x.com/getanvaya',
-    linkedin: 'https://linkedin.com/company/anvaya',
+    twitter: "https://x.com/getanvaya",
+    linkedin: "https://linkedin.com/company/anvaya",
   },
 };
 
@@ -183,21 +183,21 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    'school management software',
-    'school ERP',
-    'education ERP',
-    'school administration software',
-    'student information system',
-    'school fees management',
-    'attendance management system',
-    'ANVAYA',
+    "school management software",
+    "school ERP",
+    "education ERP",
+    "school administration software",
+    "student information system",
+    "school fees management",
+    "attendance management system",
+    "ANVAYA",
   ],
-  authors: [{ name: 'ANVAYA' }],
-  creator: 'ANVAYA',
-  publisher: 'ANVAYA',
+  authors: [{ name: "ANVAYA" }],
+  creator: "ANVAYA",
+  publisher: "ANVAYA",
   openGraph: {
-    type: 'website',
-    locale: 'en_IN',
+    type: "website",
+    locale: "en_IN",
     url: siteConfig.url,
     title: `${siteConfig.name} – ${siteConfig.tagline}`,
     description: siteConfig.description,
@@ -207,16 +207,16 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: 'ANVAYA – Every School Function, Connected.',
+        alt: "ANVAYA – Every School Function, Connected.",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: `${siteConfig.name} – ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: '@getanvaya',
+    creator: "@getanvaya",
   },
   robots: {
     index: true,
@@ -224,17 +224,17 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
-  manifest: '/site.webmanifest',
+  manifest: "/site.webmanifest",
 };
 ```
 
@@ -242,15 +242,15 @@ export const metadata: Metadata = {
 
 ```tsx
 // app/features/attendance/page.tsx
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Attendance Management',
+  title: "Attendance Management",
   description:
-    'Track student and staff attendance in real time with ANVAYA. Automated reports, parent notifications, and seamless integration with the rest of your school operations.',
+    "Track student and staff attendance in real time with ANVAYA. Automated reports, parent notifications, and seamless integration with the rest of your school operations.",
   openGraph: {
-    title: 'Attendance Management | ANVAYA',
-    description: 'Track student and staff attendance in real time with ANVAYA.',
+    title: "Attendance Management | ANVAYA",
+    description: "Track student and staff attendance in real time with ANVAYA.",
   },
 };
 ```
@@ -267,7 +267,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      type: 'article',
+      type: "article",
       publishedTime: post.publishedAt,
       images: [post.coverImage],
     },

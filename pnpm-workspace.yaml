@@ -37,18 +37,25 @@ shamefullyHoist: false
 # This is the single source of truth for shared dependency versions.
 # Packages reference these versions using "catalog:" in their package.json.
 catalog:
-  # ── Runtime dependencies (used by apps) ──────────────────────────
   react: ^19.3.0
   react-dom: ^19.3.0
   next: ^16.4.6
   tailwindcss: ^4.3.3
-  "@tailwindcss/turbopack": ^4.3.3
+  "@tailwindcss/postcss": ^4.3.3
+  postcss: ^8.5.3
+  express: ^5.3.0
+  helmet: ^8.3.0
+  cors: ^2.8.6
+  dotenv: ^16.4.7
   typescript: ~6.0.3
   "@biomejs/biome": 2.6.8
   turbo: ~2.11.11
   babel-plugin-react-compiler: ^1.0.0
-
-  # ── Type Definitions ────────────────────────────────────────────
+  "@base-ui/react": ^1.9.0
+  class-variance-authority: ^0.7.1
+  cn: ^0.5.2
   "@types/node": ^26.6.6
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
+  "@types/express": ^5.0.6
+  "@types/cors": ^2.8.19

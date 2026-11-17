@@ -58,4 +58,4 @@ apps/web/src/
 
 - `template.tsx`: If you need a layout that re-renders on navigation (unlike layout.tsx, which preserves state), use `template.tsx`. It wraps the child segment but is useful for enter/exit animations.
 - `default.tsx`: Required only if you use Parallel Routes (@folder). It serves as a fallback when a parallel route cannot be matched.
-- Route Handlers (`route.ts`): Place these inside `app/api/` to create REST endpoints using the Web Request/Response APIs.
+- Backend APIs: All REST endpoints are handled exclusively by `@anvaya/api` (Express backend). Do not create backend API handlers inside Next.js.

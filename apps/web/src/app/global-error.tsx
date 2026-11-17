@@ -1,11 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 // Catches errors in the root layout itself. It replaces the root layout when active, so it must render its own <html> and <body> tags. Without it, a failure in the root layout would crash the entire application with an unstyled browser error page.
-export default function GlobalError({ error, retry }: { error: unknown; retry: () => void }) {
+export default function GlobalError({
+  error,
+  retry,
+}: {
+  error: Error & { digest?: string };
+  retry: () => void;
+}) {
   useEffect(() => {
-    console.error('Unhandled root application error:', error);
+    console.error("Unhandled root application error:", error);
   }, [error]);
 
   return (
