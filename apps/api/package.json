@@ -1,0 +1,32 @@
+{
+  "name": "@anvaya/api",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "node --watch --experimental-strip-types src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "clean": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\"",
+    "test": "node -e \"console.log('@anvaya/api: No tests specified yet')\"",
+    "seed:demo": "node -e \"console.log('Seeding demo data for ANVAYA...')\""
+  },
+  "dependencies": {
+    "cors": "catalog:",
+    "dotenv": "catalog:",
+    "express": "catalog:",
+    "helmet": "catalog:"
+  },
+  "devDependencies": {
+    "@anvaya/typescript-config": "workspace:*",
+    "@biomejs/biome": "catalog:",
+    "@types/cors": "catalog:",
+    "@types/express": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}
