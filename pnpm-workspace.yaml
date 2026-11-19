@@ -6,6 +6,7 @@ packages:
 allowBuilds:
   sharp: true
   unrs-resolver: true
+  esbuild: true
 
 # Every dependency's version is defined once, here, as an exact version, and
 # packages write "catalog:" instead of a version.
