@@ -55,11 +55,10 @@ pnpm install
 
 Each application manages its own environment file. Copy the respective example file before starting development.
 
-| Application | Example File             | Required Variables                       |
-| ----------- | ------------------------ | ---------------------------------------- |
-| `apps/api`  | `apps/api/.env.example`  | Database URLs, JWT secrets, S3, SMTP     |
-| `apps/web`  | `apps/web/.env.example`  | Public API URL, analytics, site metadata |
-| `apps/docs` | `apps/docs/.env.example` | Public documentation URL                 |
+| Application | Example File            | Required Variables                |
+| ----------- | ----------------------- | --------------------------------- |
+| `apps/api`  | `apps/api/.env.example` | `PORT`, `NODE_ENV`, `CORS_ORIGIN` |
+| `apps/web`  | `apps/web/.env.example` | `NEXT_PUBLIC_SITE_URL`            |
 
 ```sh
 # Example for the API
@@ -117,11 +116,8 @@ The repository is organized as a pnpm workspace managed by Turborepo.
 anvaya/
 ├── apps/                 # Deployable applications
 │   ├── api/              # Express API
-│   ├── web/              # Next.js frontend
-│   └── docs/             # Documentation site
+│   └── web/              # Next.js frontend
 ├── packages/             # Shared libraries and configuration
-├── config/               # Centralized dependency catalog
-│   └── catalog.yaml      # Single source of truth for shared versions
 ├── docs/                 # Project documentation
 ├── scripts/              # Development and maintenance scripts
 ├── .husky/               # Git hooks

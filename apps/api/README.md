@@ -23,7 +23,7 @@ pnpm --filter @anvaya/api typecheck
 pnpm --filter @anvaya/api lint
 ```
 
-The API starts on <http://localhost:4000> by default.
+The API starts on <http://localhost:8080> by default.
 
 ## Health Endpoints
 

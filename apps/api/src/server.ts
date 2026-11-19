@@ -3,7 +3,11 @@ import type { Server } from "node:http";
 import { createApp } from "./app.js";
 
 const app = createApp();
-const PORT = Number(process.env.PORT ?? 4000);
+const parsedPort = Number(process.env.PORT ?? 8080);
+if (!Number.isInteger(parsedPort) || parsedPort < 1 || parsedPort > 65535) {
+  throw new RangeError("PORT must be an integer between 1 and 65535.");
+}
+const PORT = parsedPort;
 
 const server: Server = app.listen(PORT, () => {
   console.log(`➜ ANVAYA API listening on http://localhost:${PORT}`);

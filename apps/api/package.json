@@ -12,7 +12,7 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "clean": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\"",
-    "test": "node -e \"console.log('@anvaya/api: No tests specified yet')\"",
+    "test": "tsx --test \"src/**/*.test.ts\"",
     "seed:demo": "node -e \"console.log('Seeding demo data for ANVAYA...')\""
   },
   "dependencies": {

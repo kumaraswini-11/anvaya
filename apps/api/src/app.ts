@@ -5,20 +5,25 @@ import helmet from "helmet";
 export function createApp(): Express {
   const app: Express = express();
 
-  // Security headers
+  // Security headers. Helmet removes X-Powered-By by default.
   app.use(helmet());
 
   // CORS configuration
-  const allowedOrigin = process.env.CORS_ORIGIN ?? "http://localhost:3000";
+  const allowedOrigins = (process.env.CORS_ORIGIN ?? "http://localhost:3000")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
   app.use(
     cors({
-      origin: allowedOrigin,
+      origin: allowedOrigins,
       credentials: true,
+      allowedHeaders: ["Authorization", "Content-Type", "Accept"],
+      maxAge: 600,
     })
   );
 
   // Body parsing
-  app.use(express.json());
+  app.use(express.json({ limit: "1mb" }));
 
   // Health checks for orchestration / monitoring
   app.get("/health/live", (_req: Request, res: Response) => {
