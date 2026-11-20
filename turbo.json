@@ -1,5 +1,5 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "https://v2-11-13.turborepo.dev/schema.json",
   "agentGuidance": true,
   "globalDependencies": [".env.example", "tsconfig.json", "packages/typescript-config/base.json"],
   "globalEnv": ["NODE_ENV", "CI", "PORT"],
