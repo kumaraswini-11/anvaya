@@ -52,6 +52,9 @@ Thumbs.db
 !.vscode/settings.json
 .idea/
 
+# Agent-tool compatibility symlinks (machine-local; canonical skills live in .agents/)
+.claude/skills/
+
 # Misc
 *.pem
 .vercel
